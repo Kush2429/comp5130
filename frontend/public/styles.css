@@ -1,24 +1,111 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    width: 80%;
-    margin: auto;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eaeef2;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.container:hover {
+  transform: translateY(-2px);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+td[contenteditable="true"]:hover {
+  background-color: #f1f1f1;
+}
+
+.employee-name {
+  color: #666;
+  /* Gray text color for employee names */
+  min-width: 150px;
+  /* Set a minimum width for the name column */
+  position: relative;
+}
+
+.employee-name:empty:before {
+  content: attr(data-placeholder);
+  color: #bbb;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  pointer-events: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+/* Flexbox for side-by-side sections */
+#rulesSection {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.ruleCategory {
+  flex: 1;
+  margin-right: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ruleCategory:last-child {
+  margin-right: 0;
+}
+
+.ruleCategory h3 {
+  color: #4CAF50;
+}
+
+#startOfDayTasks,
+#endOfDayTasks {
+  margin-bottom: 10px;
+}
