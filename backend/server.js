@@ -4,18 +4,24 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const tableRoutes = require('./routes/tableRoutes');
 const authRoutes = require('./routes/authRoutes');
-const logger = require('./utils/logger');
-const connectDB = require('./config/db'); // Import the DB connection
 
-// Load environment variables
 dotenv.config();
+const connectDB = require('./config/db');
 
-// Call the DB connection function
-connectDB();  // <- This line connects to MongoDB
+// Connect to the database
+connectDB();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the frontend public folder
+app.use(express.static('../frontend/public')); // Serve files from the public directory
+
+// Route for the root URL
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/../frontend/public/index.html'); // Serve index.html from the public folder
+});
 
 // Routes
 app.use('/api/tables', tableRoutes);
@@ -26,10 +32,10 @@ const https = require('https');
 const fs = require('fs');
 
 const options = {
-  key: fs.readFileSync('path/to/private.key'),
-  cert: fs.readFileSync('path/to/certificate.crt')
+  key: fs.readFileSync('./certs/private.key'),
+  cert: fs.readFileSync('./certs/certificate.crt')
 };
 
 https.createServer(options, app).listen(3000, () => {
-  logger.info('Server started on https://localhost:3000');
+  console.log('Server running on https://localhost:3000');
 });
