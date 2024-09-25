@@ -10,20 +10,38 @@ exports.getTableData = async (req, res) => {
 };
 
 exports.createOrUpdateTable = async (req, res) => {
-  const { name, date, rules } = req.body;
+  const { name, date, rules, wednesday, thursday, friday, saturday, sunday, monday, tuesday } = req.body;
 
   try {
+    // Validate that startTime is before endTime
+    const validateTimeRange = (day) => {
+      if (day.startTime >= day.endTime) {
+        throw new Error(`Invalid time range for ${day}`);
+      }
+    };
+
+    // Validate time ranges for each day
+    [wednesday, thursday, friday, saturday, sunday, monday, tuesday].forEach(validateTimeRange);
+
     let row = await Table.findOne({ name, date });
     if (row) {
       row.rules = rules;
+      row.wednesday = wednesday;
+      row.thursday = thursday;
+      row.friday = friday;
+      row.saturday = saturday;
+      row.sunday = sunday;
+      row.monday = monday;
+      row.tuesday = tuesday;
       await row.save();
     } else {
-      const newRow = new Table({ name, date, rules });
+      const newRow = new Table({ name, date, rules, wednesday, thursday, friday, saturday, sunday, monday, tuesday });
       await newRow.save();
     }
+
     res.json({ message: 'Table updated/created successfully' });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to update table' });
+    res.status(500).json({ error: err.message || 'Failed to update table' });
   }
 };
 
