@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Report Management API
+  version: '1.0.0'
+  description: |
+    API for managing reports submitted by users and handled by administrators.
+
+paths:
+  /users/reports/posting:
+    post:
+      summary: User report on a posting
+      operationId: userReportPosting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                userID:
+                  type: string
+                postingID:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '201':
+          description: Report submitted successfully
+        '400':
+          description: Invalid request
+
+  /admins/reports/posting/{postingID}:
+    get:
+      summary: Get all reports for a posting (for admin)
+      operationId: getAdminReportsForPosting
+      parameters:
+        - name: postingID
+          in: path
+          required: true
+          description: ID of the posting to retrieve reports for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reports retrieved successfully
+        '404':
+          description: Reports not found
+
+  paths:
+  /admins/postings/{postingID}:
+    delete:
+      summary: Delete a posting (if deemed illegal by admin)
+      operationId: deletePosting
+      parameters:
+        - name: postingID
+          in: path
+          required: true
+          description: ID of the posting to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Posting deleted successfully
+        '404':
+          description: Posting not found
+        '403':
+          description: Admin does not have permission to delete the posting
+
+  /users/reports:
+    get:
+      summary: Get all reports submitted by a user
+      operationId: getUserReports
+      parameters:
+        - name: userID
+          in: query
+          required: true
+          description: ID of the user whose reports to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reports retrieved successfully
+
+  /admins/reports/{reportID}/comments:
+    post:
+      summary: Add a comment to a report
+      operationId: addCommentToReport
+      parameters:
+        - name: reportID
+          in: path
+          required: true
+          description: ID of the report to add a comment to
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  description: The comment to add to the report
+      responses:
+        '201':
+          description: Comment added successfully
+        '400':
+          description: Invalid request
+        '404':
+          description: Report not found

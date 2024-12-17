@@ -1,0 +1,41 @@
+# Add files here to ignore them from prettier formatting
+
+# File types
+*.html
+*config*
+
+# Folders
+**/.storybook
+.github/*
+/dist
+/tmp
+/out-tsc
+/build
+
+# log files
+build-storybook.log
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.vscode
+
+# misc
+.eslintcache
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db

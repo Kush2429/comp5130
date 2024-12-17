@@ -1,0 +1,269 @@
+openapi: "3.1.0"
+info:
+  title: "Payment API"
+  description: "API endpoints for managing subscriptions, payments, and subscription history"
+  version: "1.0.0"
+servers:
+  - url: http://localhost:3001
+  
+paths:
+  /payment/plans:
+    get:
+      summary: "Get available subscription plans"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Plan"
+        '400':
+          description: "Bad Request"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '500':
+          description: "Server Error"
+  /payment/subscribe:
+    post:
+      summary: "Subscribe user to a plan"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubscribeRequest"
+      responses:
+        '200':
+          description: "Subscription successful"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    examples: 
+                      - success
+        '400':
+          description: "Bad Request"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '500':
+          description: "Server Error"
+  /payment/cancel-subscription:
+    post:
+      summary: "Cancel user subscription"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CancelSubscriptionRequest"
+      responses:
+        '200':
+          description: "Subscription canceled"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "success"
+        '400':
+          description: "Bad Request"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '500':
+          description: "Server Error"
+  /payment/subscription-history:
+    get:
+      summary: "Get user's subscription history"
+      parameters:
+        - name: "userId"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/SubscriptionHistory"
+        '400':
+          description: "Bad Request"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '500':
+          description: "Server Error"
+  /payment/subscription-status:
+    get:
+      summary: "Get user's subscription status"
+      parameters:
+        - name: "userId"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "subscribed"
+                  planId:
+                    type: "string"
+        '400':
+          description: "Bad Request"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '500':
+          description: "Server Error"
+        '404':
+          description: "User not found"
+        '405':
+          description: "Method Not Allowed"
+  /payment/issue-help:
+    post:
+      summary: "Request help for payment-related issues"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IssueHelpRequest"
+      responses:
+        '200':
+          description: "Help request submitted successfully"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "success"
+        '400':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "error"
+                  message:
+                    type: "string"
+                    example: "Bad request"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "error"
+                  message:
+                    type: "string"
+                    example: "Unauthorized"
+        '403':
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "error"
+                  message:
+                    type: "string"
+                    example: "Forbidden"
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "error"
+                  message:
+                    type: "string"
+                    example: "Internal server error"
+components:
+  schemas:
+    Plan:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        price:
+          type: "number"
+    SubscribeRequest:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        planId:
+          type: "string"
+    CancelSubscriptionRequest:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+    SubscriptionHistory:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        planId:
+          type: "string"
+        startDate:
+          type: "string"
+        endDate:
+          type: "string"
+    IssueHelpRequest:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        issueDescription:
+          type: "string"
+

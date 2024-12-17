@@ -1,0 +1,5 @@
+.selected-photo {
+  width: 50px; /* Adjust the width as needed */
+  height: auto; /* Auto height to maintain aspect ratio */
+  margin-right: 5px; /* Adjust spacing between thumbnails */
+}

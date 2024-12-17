@@ -1,0 +1,75 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
+  "plugins": ["jsx-a11y", "jest", "prettier"],
+  "rules": {
+    "react/prop-types": "warn",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "linebreak-style": 0,
+    "indent": ["error", 2],
+    "react/jsx-one-expression-per-line": 0,
+    "react/self-closing-comp": 0,
+    "no-trailing-spaces": 0,
+    "no-multiple-empty-lines": 0,
+    "no-unused-vars": "warn",
+    "max-len": 0,
+    "react/jsx-indent": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": 0,
+    "react/jsx-indent-props": ["error", 2],
+    "arrow-body-style": 0,
+    "no-console": 0,
+    "react/button-has-type": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "no-unused-expressions": "warn",
+    "import/prefer-default-export": 0,
+    "jsx-a11y/no-noninteractive-tabindex": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/react-in-jsx-scope": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
+        "prettier/prettier": "off",
+        "@typescript-eslint/explicit-function-return-type": [
+          "warn",
+          {
+            "allowExpressions": true
+          }
+        ]
+      },
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint", "prettier"]
+    }
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}
