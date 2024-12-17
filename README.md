@@ -1,4 +1,4 @@
-**Roomy**
+**Roomy Final Project**
 
 ## Quick start
 
