@@ -9,7 +9,6 @@
 - Start the Admin Panel: `cd admin-portal && npm i && npm run dev -- -p 8080`
 - Start the User Client: `cd roomy-client && npm i && npm run dev -- -p 4000`
 - Both the admin panel and user client are PROGRESSIVE WEB APPS and can be installed on your device
-- Video Demo: [Link]([https://drive.google.com/file/d/1q_uOL25AXGmxvbhGtv3JoO7TlS3n--_U/view?pli=1](https://youtu.be/Xp9fGwTf4Yo?si=M_kxjbiEV3GrkWco))
 
 ## File Structure
 - `service/` contains the backend server
